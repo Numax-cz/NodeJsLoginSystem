@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/register.css">
+    <title>Blog#3000 - Registrace</title>
+</head>
+<body>
+
+    <a href="/" id="exit"><</a>
+    <form action="/registerpost" method="post">
+        
+        <div class="container"><label>Zadejte jméno</label><p id="warnname"></p></div>
+        <input required type="text" name="FormUserNameRegister">
+        <label>Zadejte heslo</label>
+        <input required type="text" name="FormPasswordRegister">
+        <label>Zadejte heslo znovu</label>
+        <input required type="text" name="FormPasswordChecker">
+        <div class="button">
+            <button type="submit">Registrovat</button>
+        </div>
+    
+    </form>
+
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const warnName = document.getElementById('warnname');
+    const userName = document.querySelector('input[name=FormUserNameRegister]');
+    const userPassword = document.querySelector('input[name=FormPasswordRegister]');
+    const userPassword2 = document.querySelector('input[name=FormPasswordChecker]');
+    $(function () {
+        document.addEventListener('keyup', ()=> {
+            $.ajax({
+                type: 'post',
+                url: '/userpost',
+                data: $('FORM').serialize(),
+                success: function(data){
+                    // userName.value.length
+                    warnName.innerHTML = data.zprava;
+
+                    
+                    
+                }
+            })
+        })
+    })
+    
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

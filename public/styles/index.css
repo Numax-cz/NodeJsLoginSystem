@@ -1,0 +1,55 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Source Code Pro', monospace;
+}
+/* <----PoleBlog----> */
+.PoleBlog{
+    width: 100%;
+    max-width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+/* <----Karta----> */
+#Karta{
+    background-color:  rgb(255, 255, 255);
+    border: 1px solid rgba(0, 0, 0, 0.247);
+    padding: 15px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+
+    
+
+}
+/* <-Name-> */
+.Karta-Name{
+    font-size: 3rem;
+    color: black;
+}
+
+
+/* <-Author-> */
+.Karta-Author{
+    font-size: 1.2rem;
+    color:  rgb(0, 0, 0);
+    margin-bottom: 10px;
+    display: flex;
+}
+/* <-Date-> */
+.Karta-Author p{
+    font-size: 1rem;
+    color:  rgba(24, 24, 24, 0.733);
+    align-self: center;
+    margin-left: 10px;
+}
+
+/* <-Description-> */
+.Karta-Description{
+    padding: 7px;
+}
+/* <----Login/Register Button----> */
+.user{
+    text-align: right;
+}
