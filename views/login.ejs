@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/login.css">
     <title>Blog#3000 - Přihlášení</title>
 </head>
 <body>
+
+    <a href="/" id="exit"><</a>
+    <div class="starttext">
+        <h1>Přihlásit se</h1>
+
+    </div>
     <form action="/loginpost" method="post">
-        <label>Zadejte jméno</label>
-        <input  type="text" name="FormUserNameLogin"
-        <label>Zadejte heslo</label>
-        <input  type="password" name="FormPasswordLogin">
-        <button type="submit">Registrovat</button>
+        <div class="container"><label>Uživatelské jméno</label><p id="warnname"></p></div>
+        <input required type="text" name="FormUserNameLogin">
+        <label>Heslo</label>
+        <input required type="password" name="FormPasswordLogin">
+        <div class="button">
+            <button class="btn" type="submit">Přihlásit se</button>
+        </div>
+        <div class="bottom">
+            <span>Ještě nemáš účet? <a href="/register">Registrovat se</a></span>
+        </div>
     </form>
-    
+
+
 </body>
 </html>
-
-<style>
-    *{
-        background-color: grey;
-    }
-</style>

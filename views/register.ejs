@@ -10,25 +10,33 @@
 <body>
 
     <a href="/" id="exit"><</a>
+    <div class="starttext">
+        <h1>Začínáme</h1>
+        <span>Pro začátek si vytvořte účet</span>
+    </div>
     <form action="/registerpost" method="post">
-        
-        <div class="container"><label>Zadejte jméno</label><p id="warnname"></p></div>
+        <div class="container"><label>Vyberte uživatelské jméno</label><p id="warnname"></p></div>
         <input required type="text" name="FormUserNameRegister">
-        <label>Zadejte heslo</label>
-        <input required type="text" name="FormPasswordRegister">
-        <label>Zadejte heslo znovu</label>
-        <input required type="text" name="FormPasswordChecker">
+        <div class="container"><label>Vyberte heslo</label><p id="warnpass"></p></div>
+        <input required type="password" name="FormPasswordRegister">
+        <div class="container"><label>Zadejte heslo znovu</label><p id="warnpasschck"></p></div>
+        <input required type="password" name="FormPasswordChecker">
         <div class="button">
-            <button type="submit">Registrovat</button>
+            <button class="btn" type="submit">Vytvořit účet</button>
         </div>
-    
+        <div class="bottom">
+            <span>Již máte účet? <a href="/login">Přihlásit se</a></span>
+        </div>
     </form>
+
 
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     const warnName = document.getElementById('warnname');
+    const warnPass = document.getElementById('warnpass');
+    const warnPasschck = document.getElementById('warnpasschck');
     const userName = document.querySelector('input[name=FormUserNameRegister]');
     const userPassword = document.querySelector('input[name=FormPasswordRegister]');
     const userPassword2 = document.querySelector('input[name=FormPasswordChecker]');
@@ -39,17 +47,49 @@
                 url: '/userpost',
                 data: $('FORM').serialize(),
                 success: function(data){
-                    // userName.value.length
-                    warnName.innerHTML = data.zprava;
+                    console.log(data);
+                    warnName.innerHTML = data[0].zprava; //User
+                    warnPass.innerHTML = data[1].zprava; //Password
+                    warnPasschck.innerHTML = data[2].zprava; //Passwordauth
 
+                    if(userName.value == ''){
+                        warnName.style.display = 'none'
+                    }else{
+                        warnName.style.display = 'block'
+                    }   
+                    if(userPassword.value == ''){
+                        warnPass.style.display = 'none'
+                    }else{
+                        warnPass.style.display = 'block'
+                    }
+                    if(userPassword2.value == ''){
+                        warnPasschck.style.display = 'none'
+                    }else{
+                        warnPasschck.style.display = 'block'
+                    }  
+                    if(data[0].error == false && data[1].error == false && data[2].error == false){
+                        PovolitOdeslani();
+                    }else{
+                        ZakazatOdeslani();
+                    }
                     
                     
                 }
+
+
+
             })
         })
     })
-    
-
+    ZakazatOdeslani();
+function PovolitOdeslani(){
+    $(".btn[type='submit']").prop('disabled', false);
+    document.querySelector("button").style.cursor = 'pointer'  
+}
+function ZakazatOdeslani() {
+    $(".btn[type='submit']").prop('disabled', true);
+    document.querySelector("button").style.cursor = 'not-allowed'  
+}   
 </script>
 
 

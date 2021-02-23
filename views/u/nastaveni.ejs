@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/panel.css">
+    <title>Blog#3000 - Nastavení</title>
+</head>
+<body>
+    <%- include('BlogBase') %>
+        <div class="dashboard">
+            <div class="UserSetting">
+                <div class="zmenitudaje">
+                    <form action="/changeusername" method="post" id="ZmenitJmenoForm">
+                        <label>Změnit jméno</label>
+                        <input type="text" name = "UserNameChange">
+                        <button type="submit">Změnit jméno</button>
+                    </form>
+                    <form action="" method="post">
+                        <label>Změnit heslo</label>
+                        <input type="password" name="password">
+                        <label>Heslo znovu</label>
+                        <input type="password" name="password2">
+                        <button type="submit">Změnit heslo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
