@@ -90,17 +90,14 @@ app.post('/registerpost', async function(req, res){ //Zapsání jména a hesla
     const pscchk = MyApp.PasswordChecker(UserPass); //Kontroluje zda je heslo v dobrém tvaru
     const userchecker = MyApp.NameChecker(UserName); //Kontroluje zda je jméno v dobrém tvaru
     const pscchk2 = MyApp.PasswordAuth(UserPass, UserPasschk); //Kontroluje zda jsou vstupy stejné 
-    if(pscchk.error == false && userchecker.error == false && pscchk2.error == false){ //Když heslo a jméno jsou v dobrém tvaru
+
+    if(pscchk.error == false && userchecker[0].error == false && pscchk2.error == false){ //Když heslo a jméno jsou v dobrém tvaru
         connection.query(`SELECT * FROM login WHERE username='${UserName}'`, async function(err, DataBaseData, fl){ //Kontrola zda uživatelské jméno neexistuje
             if(!DataBaseData.length){ // Uživatel neexistuje
-                if(userchecker.error == false){ //Kontrola zda je jméno v dobrém tvaru
-                    const UserPassHash = await MyApp.HashPassword(UserPass); //Vrátí zašifrované heslo
-                    MyApp.DatabaseUserNamePasswordHash(UserName, UserPassHash); //Jebne do db data
-                    req.session.username = UserName; //Vytvoří session
-                    res.redirect('u/panel');
-                }else{ //Když jméno je ve špatném tvaru
-                    res.redirect('/register');
-                }
+                const UserPassHash = await MyApp.HashPassword(UserPass); //Vrátí zašifrované heslo
+                MyApp.DatabaseUserNamePasswordHash(UserName, UserPassHash); //Jebne do db data
+                req.session.username = UserName; //Vytvoří session
+                res.redirect('u/panel');
             }else{ // Uživatel existuje
                 res.redirect('/register');
             }
@@ -121,18 +118,15 @@ app.post('/loginpost', async function(req, res){
             const DatabaseUserpassword = DataBaseData[0].password;
             if(await MyApp.CheckPassword(UserPass, DatabaseUserpassword) == true){
                 req.session.username = UserName; //Session username
-
-
-
                 res.redirect('u/panel');
-            }else{
-                console.log('Zadané heslo není good');
-            }
+            }else{ //Když je zadané heslo na číču
+                res.redirect('/login');
+            }   
         }else{ // kdžy není se k čemu přihlásit
-            console.log('ERR');
+            res.redirect('/login');
         }
 
-    })
+    });
 });
 app.post('/changeusername', function(req, res){
     const UserNameChange = req.body.UserNameChange; //input jména (Změna jména)
