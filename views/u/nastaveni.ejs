@@ -10,20 +10,28 @@
 <body>
     <%- include('BlogBase') %>
         <div class="dashboard">
-            <div class="UserSetting">
+            <div class="UserSetting">    
+                <div class="success"> <%- success %> </div>      
                 <div class="zmenitudaje">
                     <form action="/changeusername" method="post" id="ZmenitJmenoForm">
-                        <label>Změnit jméno</label>
-                        <input type="text" name = "UserNameChange">
-                        <button type="submit">Změnit jméno</button>
+                        <p id="warnname"></p>
+                        <label>Vyberte uživatelské jméno</label>
+                        <input type="text" name = "UserNameChange" id="usernamechange">
+                        <button id='btn1'type="submit">Změnit jméno</button>
+                        <div class="err"> <%- error %> </div>
                     </form>
-                    <form action="" method="post">
-                        <label>Změnit heslo</label>
+                    <form action="/zmenitheslo" method="post" id="password">
+                        <label>Heslo</label>
+                        <input type="password" name="passwordstay">
+                        <label>Nové heslo</label>
                         <input type="password" name="password">
-                        <label>Heslo znovu</label>
+                        <label>Nové heslo znovu</label>
                         <input type="password" name="password2">
-                        <button type="submit">Změnit heslo</button>
+                        <button id='btn2' type="submit">Změnit heslo</button>
                     </form>
+                    <p id="pserror"></p>
+                    <p id="pserror2"></p>
+                    
                 </div>
             </div>
         </div>
@@ -31,3 +39,71 @@
 
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const warnName = document.getElementById('warnname');
+    const userName = document.querySelector('input[name=UserNameChange]');
+    const passError = document.getElementById('pserror');
+    const passError2 = document.getElementById('pserror2');
+    const Password = document.querySelector('input[name=password]')
+    const Password2 = document.querySelector('input[name=password2]')
+    $("input#usernamechange").on("change paste keyup", function(){
+        $.ajax({
+            type: 'post',
+            url: '/userchecker',
+            data: $('FORM').serialize(),
+            success: function(data){
+                warnName.innerHTML = data[0].zprava;
+                if(userName.value == ''){
+                    warnName.style.display = 'none'
+                }else{
+                    warnName.style.display = 'block'
+                }  
+                if(data[0].error == false){
+                    PovolitOdeslani(1);
+                }else{
+                    ZakazatOdeslani(1);
+                }
+            }
+        });
+    });
+    $(function(){
+        document.addEventListener('keyup', () => {
+            $.ajax({
+                type: 'post',
+                url: '/passwordnschecker',
+                data: $('#password input').serialize(),
+                success: function(data){
+                    passError.innerHTML = data[0].zprava;
+                    passError2.innerHTML = data[1].zprava;
+                    if(Password.value == ''){
+                        passError.style.display = 'none'
+                    }else{
+                        passError.style.display = 'block'
+                    }
+                    if(Password2.value == ''){
+                        passError2.style.display = 'none'
+
+                    }else{
+                        passError2.style.display = 'block'
+                    }
+                    if(data[0].error == false && data[1].error == false){
+                        PovolitOdeslani(2);
+                    }else{
+                        ZakazatOdeslani(2);
+                    }
+                }
+            });
+        });
+    });
+ZakazatOdeslani(1);
+ZakazatOdeslani(2);
+function PovolitOdeslani(pocet){
+    $(`#btn${pocet}[type='submit']`).prop('disabled', false);
+    document.getElementById(`btn${pocet}`).style.cursor = 'pointer'  
+}
+function ZakazatOdeslani(pocet) {
+    $(`#btn${pocet}[type='submit']`).prop('disabled', true);
+    document.getElementById(`btn${pocet}`).style.cursor = 'not-allowed'  
+} 
+</script>  

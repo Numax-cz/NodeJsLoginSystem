@@ -28,11 +28,12 @@ router.get('/blog', (req, res) => {
     }else{
         res.redirect('/login');
     }
-
 });
+
+
 router.get('/nastaveni', (req, res) => { //User panel nastavení
     if(req.session.username){
-        res.render('u/nastaveni', {username: req.session.username});
+        res.render('u/nastaveni', {username: req.session.username, error: [], success: []});
     }else{
         res.redirect('/login');
     }
@@ -46,7 +47,6 @@ router.get('/view/:nazevclanku', (req, res) => { //Prohlížení 1 vybráného �
     }else{ //Pokuď není nastaven parametr článku clanek= id clanku
         res.redirect('/');
     }
-  
 });
 
 module.exports = router;

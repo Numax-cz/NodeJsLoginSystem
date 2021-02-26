@@ -15,6 +15,7 @@
         <span>Pro začátek si vytvořte účet</span>
     </div>
     <form action="/registerpost" method="post">
+        <div class="puterror"> <%- error %> </div>
         <div class="container"><label>Vyberte uživatelské jméno</label><p id="warnname"></p></div>
         <input required type="text" name="FormUserNameRegister">
         <div class="container"><label>Vyberte heslo</label><p id="warnpass"></p></div>
@@ -27,6 +28,7 @@
         <div class="bottom">
             <span>Již máte účet? <a href="/login">Přihlásit se</a></span>
         </div>
+        
     </form>
 
 
@@ -47,7 +49,6 @@
                 url: '/userpost',
                 data: $('FORM').serialize(),
                 success: function(data){
-                    console.log(data);
                     warnName.innerHTML = data[0].zprava; //User
                     warnPass.innerHTML = data[1].zprava; //Password
                     warnPasschck.innerHTML = data[2].zprava; //Passwordauth

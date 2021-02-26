@@ -114,3 +114,9 @@ p{
     color: var(--TextLabel);
 
 }
+.error{
+    color: #EA2027;
+    margin-top: 1%;
+    font-size: 1.2rem;
+    text-align: center;
+}
