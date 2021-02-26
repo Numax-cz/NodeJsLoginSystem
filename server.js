@@ -28,13 +28,16 @@ app.use(cookiesession({
 
 //--------------GET--------------//
 app.get('/', function(req, res){
-    if(req.session.username){
-        res.redirect('u/blog')
-    }else{
-        connection.query("SELECT * FROM blog ORDER BY id DESC", function(err, DataBaseData, fl){ //Výběr dat z DB
-            res.render('index', {BlogPanel: DataBaseData});
-        });
-    }
+
+    connection.query("SELECT * FROM blog ORDER BY id DESC", function(err, DataBaseData, fl){ //Výběr dat z DB
+        if(req.session.username){
+            res.render('index', {BlogPanel: DataBaseData, valid: true, username: req.session.username});
+        }else{
+            res.render('index', {BlogPanel: DataBaseData, valid: false, username: []});
+        }
+        
+    });
+    
 
 });
 
@@ -205,13 +208,13 @@ app.post('/post', function(req, res){ //Postování blogu
 
 
 
+
 //Router setup
 app.set('view engine', 'ejs');
 
 app.use('/blog', BlogRouter);
 app.use('/u', BlogRouter);
 app.use('/u/error', BlogRouter);
-app.use('/u/blog', BlogRouter);
 app.use(express.static(__dirname + '/public')); //CSS
 
 

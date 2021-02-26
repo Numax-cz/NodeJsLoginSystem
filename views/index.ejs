@@ -13,8 +13,15 @@
 <body>
     <div class="user">
        
-        <a href="/login">Login</a> 
-        <a href="/register">Signup</a>
+        <% if (valid == true) { %>
+           <a href="u/panel"><%- username %></a>
+        <%} else { %>
+            <a href="/login">Login</a> 
+            <a href="/register">Signup</a>
+        <% } %>
+
+        
+
 
     </div>
 
@@ -25,6 +32,13 @@
                 <div class="Karta-Other">
                     <div class="Karta-Author"><%= Put.username %> <p><%= Put.date %></p></div>
                     <div class="Karta-Description"><%= Put.description %></div>
+                </div>
+                <div class="Karta-bottom">
+                    <img src="/img/like.webp" class="Karta-bottom-img">
+                     <a href= '/blog/view/<%= Put.nameother%>'><img src="/img/menu.webp" class="Karta-bottom-img"></a>
+                     <% if (Put.username === username) { %>
+                        <a href= ""><img src="/img/pencil.png" class="Karta-bottom-img" id="Karta-bottom-edit"></a>
+                     <%} %>
                 </div>
             </div>
         <% }) %>

@@ -20,15 +20,6 @@ router.get('/new', (req, res) => {
 router.get('/usernamechange', (req, res) => {
     res.render('u/error/usernamechange');
 });
-router.get('/blog', (req, res) => {
-    if(req.session.username){
-        connection.query("SELECT * FROM blog ORDER BY id DESC", function(err, DataBaseData, fl){ //Výběr dat z DB
-            res.render('u/blog', {BlogPanel: DataBaseData, Name: req.session.username });
-        });
-    }else{
-        res.redirect('/login');
-    }
-});
 
 
 router.get('/nastaveni', (req, res) => { //User panel nastavení
@@ -48,5 +39,28 @@ router.get('/view/:nazevclanku', (req, res) => { //Prohlížení 1 vybráného �
         res.redirect('/');
     }
 });
+router.get('/edit/:nazevclanku', (req, res) => {
+    const nazevclanku = req.params.nazevclanku;
+    if(nazevclanku){ //kontrola zda byl zadán params
+        connection.query(`SELECT * FROM blog WHERE nameother='${nazevclanku}'`, async function(err, DataBaseData, fl){
+            if(req.session.username === DataBaseData[0].username){ //Kontorla zda uživatel má oprávnění 
+                res.render('blog/edit', {data: DataBaseData});
+            }else{ //Když uživatel nemá oprávnění
+                res.redirect('/')
+            }
+            
+        });  
+    }else{ //Pokuď není nastaven parametr článku clanek= id clanku
+        res.redirect('/');
+    }
+});
+router.post('/edit/:nazevclanku', (req, res) => {
+    const Name = req.body.FormInputName;
+    const Description = req.body.FormInpuDescription;
+    connection.query(`UPDATE blog SET name='${Name}', description='${Description}' WHERE nameother='${req.params.nazevclanku}'`, function(err, DataBaseData, fl){
+        res.redirect('/');
+    });
+});
+
 
 module.exports = router;

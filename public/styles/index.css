@@ -59,3 +59,14 @@
     text-decoration: none;
     font-weight: 900;
 }
+.Karta-bottom{
+    margin-top: 15px;
+}
+.Karta-bottom-img{
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+}
+#Karta-bottom-edit{
+    float: right;
+} 
