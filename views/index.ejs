@@ -24,6 +24,7 @@
 
 
     </div>
+    
 
     <div class="PoleBlog">
         <% BlogPanel.forEach(Put => { %>
@@ -34,10 +35,10 @@
                     <div class="Karta-Description"><%= Put.description %></div>
                 </div>
                 <div class="Karta-bottom">
-                    <img src="/img/like.webp" class="Karta-bottom-img">
-                     <a href= '/blog/view/<%= Put.nameother%>'><img src="/img/menu.webp" class="Karta-bottom-img"></a>
+
+                     <a href= '/blog/view/<%= Put.nameother%>'><img src="/img/menu.webp" class="Karta-bottom-img" title="Více"></a>
                      <% if (Put.username === username) { %>
-                        <a href= ""><img src="/img/pencil.png" class="Karta-bottom-img" id="Karta-bottom-edit"></a>
+                        <a href= "/blog/edit/<%= Put.nameother%>"><img src="/img/pencil.png" class="Karta-bottom-img" id="Karta-bottom-edit" title="Upravit"></a>
                      <%} %>
                 </div>
             </div>
@@ -46,3 +47,4 @@
     
 </body>
 </html>
+

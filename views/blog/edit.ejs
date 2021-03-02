@@ -9,7 +9,7 @@
     <title>Blog#3000</title>
 </head>
 <body>
-    <a href="/u/panel" id="exit"><</a>
+    <a href="/" id="exit"><</a>
     <form  method="post">
         <% data.forEach(Put => { %>
             
@@ -17,9 +17,18 @@
             <input required type="text" name="FormInputName" value="<%= Put.name %>">
             <label>Popisek</label>
             <textarea required name="FormInpuDescription"><%= Put.description %></textarea>
-            <div class="button">
-                <button type="submit">Upravit</button>
+            <div class="containter-button-deletebutton">
+                <div class="button">
+                    <button type="submit">Upravit</button>
+                    
+                </div>
+                <div class="buttondelete">
+                    <a href="/blog/delete/<%= Put.nameother %>" id="blogdelete">Smazat</a>
+                </div>
+                
+
             </div>
+
         <% }) %>
     </form>
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/panel.css">
+    <title>Blog#3000</title>
+</head>
+<body>
+    <%- include('BlogBase') %>
+        <div class="dashboard">
+            <div class="PoleBlog">
+                <% BlogPanel.forEach(Put => { %>
+                    <div id="Karta">
+                        <div class="Karta-Name"><%= Put.name %></div>
+                        <div class="Karta-Other">
+                            <div class="Karta-Author"><%= Put.username %> <p><%= Put.date %></p></div>
+                            <div class="Karta-Description"><%= Put.description %></div>
+                        </div>
+                        <div class="Karta-bottom">
+                            <a href= "/blog/edit/<%= Put.nameother%>"><img src="/img/pencil.png" class="Karta-bottom-img" id="Karta-bottom-edit" title="Upravit"></a>
+                            <a href="/blog/delete/<%= Put.nameother %>"><img src="/img/trash.png" class="Karta-bottom-img" id="Karta-bottom-trash" title="Smazat"></a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>      
+        </div>
+    </section>
+</body>
+</html>

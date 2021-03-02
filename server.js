@@ -35,10 +35,7 @@ app.get('/', function(req, res){
         }else{
             res.render('index', {BlogPanel: DataBaseData, valid: false, username: []});
         }
-        
     });
-    
-
 });
 
 app.get('/login', function(req, res){
@@ -63,7 +60,6 @@ app.get('/logout', function(req, res){
     res.redirect('/'); 
 });
 //--------------GET--------------//
-
 
 app.post('/userpost', function(req, res){ //Kontrola zda není jméno duplikované
     const UserName = req.body.FormUserNameRegister; //input jméno

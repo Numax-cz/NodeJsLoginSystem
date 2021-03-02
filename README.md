@@ -45,4 +45,10 @@ NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
     npm run start
     ```
 * Jestli tabulku exportujete můžete se rouvnou přihlásit username: `Admin` password: `Admin123`
+* Projekt není dokončen
+* Nezaručuji 100% bezpečnost 
+
+
+
+
 
