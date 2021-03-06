@@ -18,7 +18,7 @@ module.exports.NameChecker = (UserName) => { //Kontroluje zda je uživatelské j
     const max = process.env.MAX_USERNAME_LENGTH; //Zde se nastavuje max. délka jména
     if(UserName.length >= min){ //Kontrola zda není heslo kratší jak min
         if(UserName.length < max){ //Kontrola zda není heslo delší než max 
-            if(/^[a-zA-Z\-]+$/.test(UserName) == true){ //Kontrola zda jméno neobsahuje nepovolené znaky
+            if(/^[a-zA-Z\-0-9]+$/.test(UserName) == true){ //Kontrola zda jméno neobsahuje nepovolené znaky
                 return [{error: false, zprava: ""}]
             }else{ //Když jméno obsahuje nepovolené znaky
                 return [{error: true, zprava: "*Nepovolené znaky"}]
